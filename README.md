@@ -14,7 +14,9 @@
 
 
 ## Окружение проекта:
-  * python 3.8
-  * Django 2.2.10
-  * djangorestframework
+  * python 3.9.0
+  * Django 3.2.5
+  * djangorestframework 3.12.4
+  * django-rest-authtoken 2.1.3
+  * psycopg 2.9.1
 
