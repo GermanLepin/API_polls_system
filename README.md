@@ -20,3 +20,38 @@
   * django-rest-authtoken 2.1.3
   * psycopg 2.9.1
 
+
+Склонируйте репозиторий с помощью git
+
+    https://github.com/Speccy-Rom/API_system_polling.git
+Перейти в папку:
+```bash
+cd API_system_polling
+```
+Создать и активировать виртуальное окружение Python.
+
+Установить зависимости из файла **requirements.txt**:
+```bash
+pip install -r requirements.txt
+```
+
+# Выполнить следующие команды:
+
+* Команда для создания миграций приложения для базы данных
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+* Создание суперпользователя
+```bash
+python manage.py createsuperuser
+```
+* Введите требуемое имя пользователя, электронную почту и пароль:
+```bash
+Username (leave blank to use 'admin'): admin
+Email address: pass
+Password: admin
+Password (again): admin
+Superuser created successfully.
+```
+
