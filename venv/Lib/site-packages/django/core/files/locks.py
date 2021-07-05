@@ -28,10 +28,8 @@ def _fd(f):
 
 if os.name == 'nt':
     import msvcrt
-    from ctypes import (
-        POINTER, Structure, Union, byref, c_int64, c_ulong, c_void_p, sizeof,
-        windll,
-    )
+    from ctypes import (sizeof, c_ulong, c_void_p, c_int64,
+                        Structure, Union, POINTER, windll, byref)
     from ctypes.wintypes import BOOL, DWORD, HANDLE
 
     LOCK_SH = 0  # the default
@@ -107,12 +105,9 @@ else:
             return True
     else:
         def lock(f, flags):
-            try:
-                fcntl.flock(_fd(f), flags)
-                return True
-            except BlockingIOError:
-                return False
+            ret = fcntl.flock(_fd(f), flags)
+            return ret == 0
 
         def unlock(f):
-            fcntl.flock(_fd(f), fcntl.LOCK_UN)
-            return True
+            ret = fcntl.flock(_fd(f), fcntl.LOCK_UN)
+            return ret == 0

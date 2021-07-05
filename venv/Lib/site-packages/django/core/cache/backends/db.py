@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT, BaseCache
 from django.db import DatabaseError, connections, models, router, transaction
 from django.utils import timezone
+from django.utils.inspect import func_supports_parameter
 
 
 class Options:
@@ -84,7 +85,10 @@ class DatabaseCache(BaseDatabaseCache):
         converters = (connection.ops.get_db_converters(expression) + expression.get_db_converters(connection))
         for key, value, expires in rows:
             for converter in converters:
-                expires = converter(expires, expression, connection)
+                if func_supports_parameter(converter, 'context'):  # RemovedInDjango30Warning
+                    expires = converter(expires, expression, connection, {})
+                else:
+                    expires = converter(expires, expression, connection)
             if expires < timezone.now():
                 expired_keys.append(key)
             else:
@@ -156,7 +160,10 @@ class DatabaseCache(BaseDatabaseCache):
                         expression = models.Expression(output_field=models.DateTimeField())
                         for converter in (connection.ops.get_db_converters(expression) +
                                           expression.get_db_converters(connection)):
-                            current_expires = converter(current_expires, expression, connection)
+                            if func_supports_parameter(converter, 'context'):  # RemovedInDjango30Warning
+                                current_expires = converter(current_expires, expression, connection, {})
+                            else:
+                                current_expires = converter(current_expires, expression, connection)
 
                     exp = connection.ops.adapt_datetimefield_value(exp)
                     if result and mode == 'touch':
@@ -197,8 +204,7 @@ class DatabaseCache(BaseDatabaseCache):
                 return True
 
     def delete(self, key, version=None):
-        self.validate_key(key)
-        return self._base_delete_many([self.make_key(key, version)])
+        self.delete_many([key], version)
 
     def delete_many(self, keys, version=None):
         key_list = []
@@ -209,7 +215,7 @@ class DatabaseCache(BaseDatabaseCache):
 
     def _base_delete_many(self, keys):
         if not keys:
-            return False
+            return
 
         db = router.db_for_write(self.cache_model_class)
         connection = connections[db]
@@ -225,7 +231,6 @@ class DatabaseCache(BaseDatabaseCache):
                 ),
                 keys,
             )
-        return bool(cursor.rowcount)
 
     def has_key(self, key, version=None):
         key = self.make_key(key, version=version)
@@ -267,12 +272,9 @@ class DatabaseCache(BaseDatabaseCache):
                 cursor.execute(
                     connection.ops.cache_key_culling_sql() % table,
                     [cull_num])
-                last_cache_key = cursor.fetchone()
-                if last_cache_key:
-                    cursor.execute(
-                        'DELETE FROM %s WHERE cache_key < %%s' % table,
-                        [last_cache_key[0]],
-                    )
+                cursor.execute("DELETE FROM %s "
+                               "WHERE cache_key < %%s" % table,
+                               [cursor.fetchone()[0]])
 
     def clear(self):
         db = router.db_for_write(self.cache_model_class)

@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.messages.storage.base import BaseStorage
 from django.contrib.messages.storage.cookie import (
     MessageDecoder, MessageEncoder,
@@ -16,7 +17,7 @@ class SessionStorage(BaseStorage):
         assert hasattr(request, 'session'), "The session-based temporary "\
             "message storage requires session middleware to be installed, "\
             "and come before the message middleware in the "\
-            "MIDDLEWARE list."
+            "MIDDLEWARE%s list." % ("_CLASSES" if settings.MIDDLEWARE is None else "")
         super().__init__(request, *args, **kwargs)
 
     def _get(self, *args, **kwargs):
@@ -38,7 +39,7 @@ class SessionStorage(BaseStorage):
         return []
 
     def serialize_messages(self, messages):
-        encoder = MessageEncoder()
+        encoder = MessageEncoder(separators=(',', ':'))
         return encoder.encode(messages)
 
     def deserialize_messages(self, data):
