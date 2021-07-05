@@ -23,7 +23,7 @@
 
 Склонируйте репозиторий с помощью git
 
-    https://github.com/Speccy-Rom/API_system_polling.git
+    https://github.com/GermanLepin/API_system_polling.git
 Перейти в папку:
 ```bash
 cd API_system_polling
