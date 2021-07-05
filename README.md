@@ -1,4 +1,4 @@
-# API-polling-system
+# API_polls_system
 
 ## Описание ТЗ:
 
@@ -54,4 +54,3 @@ Password: admin
 Password (again): admin
 Superuser created successfully.
 ```
-
