@@ -32,7 +32,7 @@ cd API_system_polling
 
 Установить зависимости из файла **req.txt**:
 ```bash
-pip install -r requirements.txt
+pip install -r req.txt
 ```
 
 # Выполнить следующие команды:
