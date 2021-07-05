@@ -15,7 +15,7 @@
 
 ## Окружение проекта:
   * python 3.9.0
-  * Django 3.2.5
+  * Django 2.2.10
   * djangorestframework 3.12.4
   * django-rest-authtoken 2.1.3
   * psycopg 2.9.1
@@ -30,7 +30,7 @@ cd API_system_polling
 ```
 Создать и активировать виртуальное окружение Python.
 
-Установить зависимости из файла **requirements.txt**:
+Установить зависимости из файла **req.txt**:
 ```bash
 pip install -r requirements.txt
 ```
