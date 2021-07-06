@@ -70,11 +70,11 @@ python manage.py runserver
 
 * Если вы пользователь MAC OS или LINUX, то можно использовать при вызове команд или ординарные, или двойные кавычки 
 
-  пример curl --location --request POST 'http://localhost:8000/api/login/'
+  пример: curl --location --request POST 'http://localhost:8000/api/login/'
 ###
 * Если вы используете WINDOWS, то только двойные кавычки 
 
-  пример curl --location --request POST "http://localhost:8000/api/login/")
+  пример: curl --location --request POST "http://localhost:8000/api/login/")
 
 ### Получение токена пользователя: 
 * Метод запроса: GET
@@ -82,7 +82,6 @@ python manage.py runserver
 * Body: 
     * username: имя пользователя
     * password: пароль
-####
 * Пример WINDOWS (используйте в username и password имя пользователя и пароль от суперюзера):
 ```
 curl --location --request GET "http://localhost:8000/api/login/" \
@@ -95,7 +94,6 @@ curl --location --request GET 'http://localhost:8000/api/login/' \
 --form 'username=%username' \
 --form 'password=%password'
 ```
-
 
 ### Создание опроса:
 * Метод запроса: POST
