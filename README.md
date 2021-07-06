@@ -69,9 +69,11 @@ python manage.py runserver
 ### Документация API
 
 * Если вы пользователь MAC OS или LINUX, то можно использовать при вызове команд или ординарные, или двойные кавычки 
+
 * пример curl --location --request POST 'http://localhost:8000/api/login/'
 ###
 * Если вы используете WINDOWS, то только двойные кавычки 
+
 * пример curl --location --request POST "http://localhost:8000/api/login/")
 
 ### Получение токена пользователя: 
@@ -80,6 +82,7 @@ python manage.py runserver
 * Body: 
     * username: имя пользователя
     * password: пароль
+
 * Пример WINDOWS (используйте в username и password имя пользователя и пароль от суперюзера):
 ```
 curl --location --request GET "http://localhost:8000/api/login/" \
@@ -93,6 +96,7 @@ curl --location --request GET 'http://localhost:8000/api/login/' \
 --form 'password=%password'
 ```
 
+
 ### Создание опроса:
 * Метод запроса: POST
 * URL: http://localhost:8000/api/pollsApp/create/
@@ -103,6 +107,7 @@ curl --location --request GET 'http://localhost:8000/api/login/' \
     * pub_date: дату публикации можно установить только при создании опроса, формат: YYYY-MM-DD HH:MM:SS
     * end_date: дата окончания опроса, формат: YYYY-MM-DD HH:MM:SS
     * poll_description: описание опроса
+    
 * Пример WINDOWS: 
 ```
 curl --location --request POST "http://localhost:8000/api/pollsApp/create/" \
