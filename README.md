@@ -73,20 +73,26 @@ python manage.py runserver
 (пример curl --location --request POST "http://localhost:8000/api/login/")
 
 ### Получение токена пользователя: 
-* Request method: GET
+* Метод запроса: GET
 * URL: http://localhost:8000/api/login/
 * Body: 
     * username: имя пользователя
     * password: пароль
-* Пример (используйте в username и password имя пользователя и пароль от суперюзера):
+* Пример WINDOWS (используйте в username и password имя пользователя и пароль от суперюзера):
 ```
 curl --location --request GET "http://localhost:8000/api/login/" \
 --form "username=%username" \
 --form "password=%password"
 ```
+* Пример MAC OS или LINUX (используйте в username и password имя пользователя и пароль от суперюзера):
+```
+curl --location --request GET 'http://localhost:8000/api/login/' \
+--form 'username=%username' \
+--form 'password=%password'
+```
 
 ### Создание опроса:
-* Request method: POST
+* Метод запроса: POST
 * URL: http://localhost:8000/api/pollsApp/create/
 * Header:
    *  Авторизация: Token userToken
@@ -95,7 +101,7 @@ curl --location --request GET "http://localhost:8000/api/login/" \
     * pub_date: дату публикации можно установить только при создании опроса, формат: YYYY-MM-DD HH:MM:SS
     * end_date: дата окончания опроса, формат: YYYY-MM-DD HH:MM:SS
     * poll_description: описание опроса
-* Example: 
+* Пример WINDOWS: 
 ```
 curl --location --request POST "http://localhost:8000/api/pollsApp/create/" \
 --header "Authorization: Token %userToken" \
@@ -104,9 +110,18 @@ curl --location --request POST "http://localhost:8000/api/pollsApp/create/" \
 --form "end_date=%end_date" \
 --form "poll_description=%poll_description"
 ```
+* Пример MAC OS или LINUX 
+```
+curl --location --request POST 'http://localhost:8000/api/pollsApp/create/' \
+--header 'Authorization: Token %userToken' \
+--form 'poll_name=%poll_name' \
+--form 'pub_date=%pub_date' \
+--form 'end_date=%end_date' \
+--form 'poll_description=%poll_description'
+```
 
 ### Обновление опроса:
-* Request method: PATCH
+* Метод запроса: PATCH
 * URL: http://localhost:8000/api/pollsApp/update/[poll_id]/
 * Header:
     * Авторизация: Token userToken
@@ -116,13 +131,21 @@ curl --location --request POST "http://localhost:8000/api/pollsApp/create/" \
     * poll_name: название опроса
     * end_date: дата окончания опроса, формат: YYYY-MM-DD HH:MM:SS
     * poll_description: описание опроса
-* Example:
+* Пример WINDOWS:
 ```
 curl --location --request PATCH "http://localhost:8000/api/pollsApp/update/[poll_id]/" \
 --header "Authorization: Token %userToken" \
 --form "poll_name=%poll_name" \
 --form "end_date=%end_date" \
 --form "poll_description=%poll_description"
+```
+* Пример MAC OS или LINUX
+```
+curl --location --request PATCH 'http://localhost:8000/api/pollsApp/update/[poll_id]/' \
+--header 'Authorization: Token %userToken' \
+--form 'poll_name=%poll_name' \
+--form 'end_date=%end_date' \
+--form 'poll_description=%poll_description'
 ```
 
 ### Удаление опроса:
