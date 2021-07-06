@@ -44,7 +44,8 @@ class Answer(models.Model):
     user_id = models.IntegerField()
     poll = models.ForeignKey(Poll, related_name='poll', verbose_name='Опрос', on_delete=models.CASCADE)
     question = models.ForeignKey(Question, related_name='question', verbose_name='Вопрос', on_delete=models.CASCADE)
-    choice = models.ForeignKey(Choice, related_name='choice', on_delete=models.CASCADE, verbose_name='Вариант ответа', null=True)
+    choice = models.ForeignKey(Choice, related_name='choice', on_delete=models.CASCADE, verbose_name='Вариант ответа',
+                               null=True)
     choice_text = models.CharField(max_length=200, verbose_name='Ответ', null=True)
 
     class Meta:
