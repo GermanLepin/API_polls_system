@@ -66,11 +66,13 @@ python manage.py runserver
 * Приложение будет доступно по адресу: http://127.0.0.1:8000/
 
 
-### _Документация API_ 
-### Если вы пользователь MAC OS или LINUX, то можно импользовать при вызове команд или ординарные, или двойные кавычки 
-(пример curl --location --request POST 'http://localhost:8000/api/login/')
-### а если вы используете WINDOWS, то только двойные кавычки 
-(пример curl --location --request POST "http://localhost:8000/api/login/")
+### Документация API
+
+* Если вы пользователь MAC OS или LINUX, то можно использовать при вызове команд или ординарные, или двойные кавычки 
+* пример curl --location --request POST 'http://localhost:8000/api/login/'
+###
+* Если вы используете WINDOWS, то только двойные кавычки 
+* пример curl --location --request POST "http://localhost:8000/api/login/")
 
 ### Получение токена пользователя: 
 * Метод запроса: GET

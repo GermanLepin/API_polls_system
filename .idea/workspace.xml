@@ -41,6 +41,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="API_Polling_System.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -69,7 +70,7 @@
       <updated>1625231475739</updated>
       <workItem from="1625231530183" duration="225000" />
       <workItem from="1625297241552" duration="14864000" />
-      <workItem from="1625557938194" duration="4731000" />
+      <workItem from="1625557938194" duration="6029000" />
     </task>
     <servers />
   </component>
