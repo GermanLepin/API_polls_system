@@ -24,19 +24,19 @@
   * pytz==2020.5
   * sqlparse==0.4.1
 
-
+## Инструкция по разворачиванию приложения:
 Склонируйте репозиторий с помощью git
 
-    https://github.com/GermanLepin/API_system_polling.git
+    https://github.com/GermanLepin/API_polls_system.git
 Перейти в папку:
 ```bash
-cd API_system_polling
+cd API_polls_system
 ```
-Создать и активировать виртуальное окружение Python.
+## Создать и активировать виртуальное окружение Python.
 
-Установить зависимости из файла **req.txt**:
+Установить зависимости из файла **requirements.txt**:
 ```bash
-pip install -r req.txt
+pip install -r requirements.txt
 ```
 
 # Выполнить следующие команды:
@@ -72,22 +72,22 @@ python manage.py runserver
 ### а если вы используете WINDOWS, то только двойные кавычки 
 (пример curl --location --request POST "http://localhost:8000/api/login/")
 
-### Чтобы получить токен пользователя: 
+### Получение токена пользователя: 
 * Request method: GET
 * URL: http://localhost:8000/api/login/
 * Body: 
-    * username: 
-    * password: 
-* Пример (используйте в username и password логин и пароль от суперюзера:
+    * username: имя пользователя
+    * password: пароль
+* Пример (используйте в username и password имя пользователя и пароль от суперюзера):
 ```
 curl --location --request GET "http://localhost:8000/api/login/" \
 --form "username=%username" \
 --form "password=%password"
 ```
 
-### Чтобы создать опрос:
+### Создание опроса:
 * Request method: POST
-* URL: http://localhost:8000/api/surveysApp/create/
+* URL: http://localhost:8000/api/pollsApp/create/
 * Header:
    *  Авторизация: Token userToken
 * Body:
@@ -105,227 +105,227 @@ curl --location --request POST "http://localhost:8000/api/pollsApp/create/" \
 --form "poll_description=%poll_description"
 ```
 
-### Обновить опрос:
+### Обновление опроса:
 * Request method: PATCH
-* URL: http://localhost:8000/api/pollsApp/update/[survey_id]/
+* URL: http://localhost:8000/api/pollsApp/update/[poll_id]/
 * Header:
     * Авторизация: Token userToken
 * Param:
-    * survey_id 
+    * poll_id: id опроса 
 * Body:
     * poll_name: название опроса
     * end_date: дата окончания опроса, формат: YYYY-MM-DD HH:MM:SS
     * poll_description: описание опроса
 * Example:
 ```
-curl --location --request PATCH "http://localhost:8000/api/surveysApp/update/[survey_id]/" \
+curl --location --request PATCH "http://localhost:8000/api/pollsApp/update/[poll_id]/" \
 --header "Authorization: Token %userToken" \
---form "poll_name=%survey_name" \
+--form "poll_name=%poll_name" \
 --form "end_date=%end_date" \
---form "poll_description=%survey_description"
+--form "poll_description=%poll_description"
 ```
 
-### Удалить опрос:
+### Удаление опроса:
 * Request method: DELETE
-* URL: http://localhost:8000/api/pollsApp/update/[survey_id]
+* URL: http://localhost:8000/api/pollsApp/update/[poll_id]
 * Header:
     * Авторизация: Token userToken
 * Param:
-    * survey_id
+    * poll_id
 Example:
 ```
-curl --location --request DELETE "http://localhost:8000/api/surveysApp/update/[survey_id]/" \
+curl --location --request DELETE "http://localhost:8000/api/pollsApp/update/[poll_id]/" \
 --header "Authorization: Token %userToken"
 ```
 
-### Посмотреть все опросы:
+### Просмотр всех опросов:
 * Request method: GET
-* URL: http://localhost:8000/api/surveysApp/view/
+* URL: http://localhost:8000/api/pollsApp/view/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Example:
 ```
-curl --location --request GET 'http://localhost:8000/api/surveysApp/view/' \
---header 'Authorization: Token %userToken'
+curl --location --request GET "http://localhost:8000/api/pollsApp/view/" \
+--header "Authorization: Token %userToken"
 ```
 
 ### Просмотр текущих активных опросов:
 * Request method: GET
-* URL: http://localhost:8000/api/surveysApp/view/active/
+* URL: http://localhost:8000/api/pollsApp/view/active/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Example:
 ```
-curl --location --request GET 'http://localhost:8000/api/surveysApp/view/active/' \
---header 'Authorization: Token %userToken'
+curl --location --request GET "http://localhost:8000/api/pollsApp/view/active/" \
+--header "Authorization: Token %userToken"
 ```
 
-### Создаем вопрос:
+### Создание вопроса:
 * Request method: POST
 * URL: http://localhost:8000/api/question/create/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Body:
-    * survey: id of survey 
-    * question_text: 
-    * question_type: can be only `one`, `multiple` or `text`
+    * poll: id опроса
+    * question_text: текст вопроса
+    * question_type: тип вопроса, который может быть только `one`, `multiple` или `text`
 * Example:
 ```
-curl --location --request POST 'http://localhost:8000/api/question/create/' \
---header 'Authorization: Token %userToken' \
---form 'survey=%survey' \
---form 'question_text=%question_text' \
---form 'question_type=%question_type \
+curl --location --request POST "http://localhost:8000/api/question/create/" \
+--header "Authorization: Token %userToken" \
+--form "poll=%poll" \
+--form "question_text=%question_text" \
+--form "question_type=%question_type" \
 ```
 
-### Обновляем вопрос:
+### Обновление вопроса:
 * Request method: PATCH
 * URL: http://localhost:8000/api/question/update/[question_id]/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Param:
-    * question_id
+    * question_id: id вопроса
 * Body:
-    * survey: id of survey 
-    * question_text: question
-    * question_type: can be only `one`, `multiple` or `text`
+    * poll: id опроса
+    * question_text: текст вопроса
+    * question_type: тип вопроса, который может быть только `one`, `multiple` или `text`
 * Example:
 ```
-curl --location --request PATCH 'http://localhost:8000/api/question/update/[question_id]/' \
---header 'Authorization: Token %userToken' \
---form 'survey=%survey' \
---form 'question_text=%question_text' \
---form 'question_type=%question_type \
+curl --location --request PATCH "http://localhost:8000/api/question/update/[question_id]/" \
+--header "Authorization: Token %userToken" \
+--form "poll=%poll" \
+--form "question_text=%question_text" \
+--form "question_type=%question_type" \
 ```
 
-### Удаляем вопрос:
+### Удаление вопроса:
 * Request method: DELETE
 * URL: http://localhost:8000/api/question/update/[question_id]/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Param:
-    * question_id
+    * question_id: id вопроса
 * Example:
 ```
-curl --location --request DELETE 'http://localhost:8000/api/question/update/[question_id]/' \
---header 'Authorization: Token %userToken' \
---form 'survey=%survey' \
---form 'question_text=%question_text' \
---form 'question_type=%question_type \
+curl --location --request DELETE "http://localhost:8000/api/question/update/[question_id]/" \
+--header "Authorization: Token %userToken" \
+--form "poll=%poll" \
+--form "question_text=%question_text" \
+--form "question_type=%question_type" \
 ```
 
-### Создаем выбор:
+### Создание выбора ответа:
 * Request method: POST
 * URL: http://localhost:8000/api/choice/create/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Body:
-    * question: id of question
-    * choice_text: choice
+    * question: id вопроса
+    * choice_text: выбор ответа
 * Example:
 ```
-curl --location --request POST 'http://localhost:8000/api/choice/create/' \
---header 'Authorization: Token %userToken' \
---form 'question=%question' \
---form 'choice_text=%choice_text'
+curl --location --request POST "http://localhost:8000/api/choice/create/" \
+--header "Authorization: Token %userToken" \
+--form "question=%question" \
+--form "choice_text=%choice_text"
 ```
 
-### Обновляем выбор:
+### Обновление выбора отвтета:
 * Request method: PATCH
 * URL: http://localhost:8000/api/choice/update/[choice_id]/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Param:
-    * choice_id
+    * choice_id: id выбора ответа
 * Body:
-    * question: id of question
-    * choice_text: choice
+    * question: id вопроса
+    * choice_text: выбор ответа
 * Example:
 ```
-curl --location --request PATCH 'http://localhost:8000/api/choice/update/[choice_id]/' \
---header 'Authorization: Token %userToken' \
---form 'question=%question' \
---form 'choice_text=%choice_text'
+curl --location --request PATCH "http://localhost:8000/api/choice/update/[choice_id]/" \
+--header "Authorization: Token %userToken" \
+--form "question=%question" \
+--form "choice_text=%choice_text"
 ```
 
-### Обновляем выбор:
+### Удаление выбора ответа:
 * Request method: DELETE
 * URL: http://localhost:8000/api/choice/update/[choice_id]/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Param:
-    * choice_id
+    * choice_id: id выбора ответа
 * Example:
 ```
-curl --location --request DELETE 'http://localhost:8000/api/choice/update/[choice_id]/' \
---header 'Authorization: Token %userToken' \
---form 'question=%question' \
---form 'choice_text=%choice_text'
+curl --location --request DELETE "http://localhost:8000/api/choice/update/[choice_id]/" \
+--header "Authorization: Token %userToken" \
+--form "question=%question" \
+--form "choice_text=%choice_text"
 ```
 
-### Создаем ответ:
+### Создание ответа:
 * Request method: POST
 * URL: http://localhost:8000/api/answer/create/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Body:
-    * survey: id of survey
-    * question: id of question
-    * choice: if question type is one or multiple then it’s id of choice else null
-    * choice_text: if question type is text then it’s text based answer else null
+    * poll: id опроса
+    * question: id вопроса
+    * choice: если тип вопроса `one` или `multiple`, тогда выбираем `choice_id`, иначе `null`
+    * choice_text: если тип вопроса-`text`, создаем текстовый ответ, иначе `null`
 * Example:
 ```
-curl --location --request POST 'http://localhost:8000/api/answer/create/' \
---header 'Authorization: Token %userToken' \
---form 'survey=%survey' \
---form 'question=%question' \
---form 'choice=%choice \
---form 'choice_text=%choice_text'
+curl --location --request POST "http://localhost:8000/api/answer/create/" \
+--header "Authorization: Token %userToken" \
+--form "poll=%poll" \
+--form "question=%question" \
+--form "choice=%choice" \
+--form "choice_text=%choice_text"
 ```
 
-### Обновляем ответ:
+### Обновление ответа:
 * Request method: PATCH
 * URL: http://localhost:8000/api/answer/update/[answer_id]/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Param:
-    * answer_id
+    * answer_id: id ответа
 * Body:
-    * survey: id of survey
-    * question: id of question
-    * choice: if question type is one or multiple then it’s id of choice else null
-    * choice_text: if question type is text then it’s text based answer else null
+    * poll: id опроса
+    * question: id вопроса
+    * choice: если тип вопроса `one` или `multiple`, тогда выбираем `choice_id`, иначе `null`
+    * choice_text: если тип вопроса-`text`, создаем текстовый ответ, иначе `null`
 * Example:
 ```
-curl --location --request PATCH 'http://localhost:8000/api/answer/update/[answer_id]' \
---header 'Authorization: Token %userToken' \
---form 'survey=%survey' \
---form 'question=%question' \
---form 'choice=%choice \
---form 'choice_text=%choice_text'
+curl --location --request PATCH "http://localhost:8000/api/answer/update/[answer_id]" \
+--header "Authorization: Token %userToken" \
+--form "poll=%poll" \
+--form "question=%question" \
+--form "choice=%choice" \
+--form "choice_text=%choice_text"
 ```
 
-### Удаляем ответ:
+### Удаление ответа:
 * Request method: DELETE
 * URL: http://localhost:8000/api/answer/update/[answer_id]/
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Param:
-    * answer_id
+    * answer_id: id ответа
 * Example:
 ```
-curl --location --request DELETE 'http://localhost:8000/api/answer/update/[answer_id]' \
---header 'Authorization: Token %userToken'
+curl --location --request DELETE "http://localhost:8000/api/answer/update/[answer_id]" \
+--header "Authorization: Token %userToken"
 ```
 
-### Просматриваем ответы пользователя:
+### Просмотр ответов пользователя:
 * Request method: GET
 * URL: http://localhost:8000/api/answer/view/[user_id]/
 * Param:
-    * user_id
+    * user_id: id пользователя 
 * Header:
-    * Authorization: Token userToken
+    * Авторизация: Token userToken
 * Example:
 ```
-curl --location --request GET 'http://localhost:8000/api/answer/view/[user_id]' \
---header 'Authorization: Token %userToken'
+curl --location --request GET "http://localhost:8000/api/answer/view/[user_id]" \
+--header "Authorization: Token %userToken"
